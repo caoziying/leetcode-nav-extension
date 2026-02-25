@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "name": "LeetCode 题单导航助手",
   "version": "1.1.0",
   "description": "在 LeetCode 题单页面左侧添加目录导航，快速定位到各标题位置",
@@ -13,8 +13,12 @@
         "https://leetcode.cn/*",
         "https://leetcode.com/*"
       ],
-      "js": ["content.js"],
-      "css": ["sidebar.css"],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "sidebar.css"
+      ],
       "run_at": "document_idle"
     }
   ],
