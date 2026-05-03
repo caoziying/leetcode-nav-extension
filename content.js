@@ -168,6 +168,7 @@
     if (!container) return [];
     return Array.from(container.querySelectorAll('h1,h2,h3,h4,h5,h6'))
       .filter(h => h.textContent.trim().length > 0)
+      .filter(h => !h.closest('pre, code'))
       .map((h, i) => {
         if (!h.id) h.id = `lc-nav-heading-${i}`;
         return { level: parseInt(h.tagName[1]), text: h.textContent.trim(), el: h, id: h.id };
