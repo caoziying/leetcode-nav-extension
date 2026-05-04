@@ -147,6 +147,7 @@
 
   function getArticleContainer() {
     const selectors = [
+      '[class*="markdown-content_"]',
       '.topic-content',
       '.discuss-markdown-container',
       '[class*="content__"]',
@@ -160,8 +161,16 @@
       const el = document.querySelector(sel);
       if (el && el.textContent.trim().length > 100) return el;
     }
+    // 回退：找包含直接标题子元素最多的 div（避免选到包裹评论区的过宽容器）
     const divs = Array.from(document.querySelectorAll('div'));
-    return divs.find(d => d.querySelectorAll('h1,h2,h3,h4').length >= 2) || null;
+    let best = null, bestCount = 0;
+    const hSel = 'h1,h2,h3,h4,h5,h6';
+    for (const d of divs) {
+      if (d.querySelectorAll(':scope > ' + hSel).length === 0) continue;
+      const count = d.querySelectorAll(hSel).length;
+      if (count > bestCount) { best = d; bestCount = count; }
+    }
+    return best || null;
   }
 
   function extractHeadings(container) {
